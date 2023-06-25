@@ -38,25 +38,25 @@ function CommandMenu() {
 
   return (
     <>
-      <Button size="icon" variant="ghost" onClick={() => setOpen(true)}>
+      <Button size='icon' variant='ghost' onClick={() => setOpen(true)}>
         <Icons.search />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
+        <CommandInput placeholder='Type a command or search...' />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           {/* <CommandSeparator /> */}
-          <CommandGroup heading="Theme">
+          <CommandGroup heading='Theme'>
             <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
-              <Icons.sun className="mr-2 h-4 w-4" />
+              <Icons.sun className='mr-2 h-4 w-4' />
               Light
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
-              <Icons.moon className="mr-2 h-4 w-4" />
+              <Icons.moon className='mr-2 h-4 w-4' />
               Dark
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
-              <Icons.laptop className="mr-2 h-4 w-4" />
+              <Icons.laptop className='mr-2 h-4 w-4' />
               System
             </CommandItem>
           </CommandGroup>

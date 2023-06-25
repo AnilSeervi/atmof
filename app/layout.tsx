@@ -27,10 +27,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <body className={cn(montserrat.className, weatherIcons.variable, 'my-4')}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="mx-auto max-w-screen-lg px-6">{children}</main>
+        <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+          <main className='mx-auto max-w-screen-lg px-6'>{children}</main>
         </ThemeProvider>
       </body>
     </html>

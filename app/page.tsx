@@ -1,9 +1,24 @@
 import NavBar from '@/components/screen/NavBar'
 
-export default function Home() {
+export type Params = {
+  lat?: `${number}`
+  lon?: `${number}`
+  city?: string
+  country?: string
+  units?: 'metric' | 'imperial'
+}
+
+type PageProps = {
+  params?: any
+  searchParams?: Params
+}
+
+export default function Page(props: PageProps) {
+  const { lat, lon, city, country, units } = props.searchParams as Params
+
   return (
     <>
-      <NavBar />
+      <NavBar units={units} />
     </>
   )
 }

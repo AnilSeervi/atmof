@@ -1,6 +1,6 @@
 import { tellMeRain } from '@/utils'
 
-export default function CurrentDetail({ minutely }) {
+export default function CurrentDetail({ minutely }: any) {
   return (
     <>
       <section>

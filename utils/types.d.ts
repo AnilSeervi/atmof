@@ -14,14 +14,9 @@ export type city = {
   timezone: string
 }
 
-type location = {
-  center: [number, number]
-  place_name: string
-  text: string
-}
-
-export type locationType = {
-  features: location[]
+export type location = {
+  name: string
+  country: string
 }
 
 export interface searchProps {

@@ -30,7 +30,9 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={cn(montserrat.className, weatherIcons.variable, 'my-4')}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <main className='mx-auto max-w-screen-lg px-6'>{children}</main>
+          <main className='mx-auto max-w-screen-lg px-6 text-sm'>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

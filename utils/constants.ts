@@ -3,11 +3,6 @@ export const londonGeo = {
   lon: 0.1278,
 }
 
-export const londonCity = {
-  city: 'London',
-  fullcity: 'London, Greater London, England, United Kingdom',
-}
-
 export const onError = () => {
   localStorage.removeItem('gps-granted')
 }
@@ -133,3 +128,10 @@ export function getWindCondition(speed: number) {
 }
 
 export const getWindDirectionDeg = (deg: number) => deg + 180
+
+export const tempValue = (temp: number, isImeprial = false) => {
+  if (isImeprial) {
+    return Math.round(temp * 1.8 + 32)
+  }
+  return Math.round(temp)
+}

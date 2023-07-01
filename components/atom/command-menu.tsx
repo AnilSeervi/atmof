@@ -1,6 +1,5 @@
 'use client'
 
-import { cn } from '@/lib/utils'
 import { Button } from '../ui/button'
 import { Icons } from '../ui/icons'
 import {
@@ -10,7 +9,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
 } from '../ui/command'
 import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
@@ -47,15 +45,24 @@ function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
           {/* <CommandSeparator /> */}
           <CommandGroup heading='Theme'>
-            <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
+            <CommandItem
+              value='light'
+              onSelect={() => runCommand(() => setTheme('light'))}
+            >
               <Icons.sun className='mr-2 h-4 w-4' />
               Light
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
+            <CommandItem
+              value='dark'
+              onSelect={() => runCommand(() => setTheme('dark'))}
+            >
               <Icons.moon className='mr-2 h-4 w-4' />
               Dark
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
+            <CommandItem
+              value='system'
+              onSelect={() => runCommand(() => setTheme('system'))}
+            >
               <Icons.laptop className='mr-2 h-4 w-4' />
               System
             </CommandItem>

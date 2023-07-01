@@ -1,1 +1,6 @@
 @import url(../fonts/weather-icons.min.css);
+
+body {
+  /* adding this because of radix ui adding padding-top when opening any dialog */
+  padding-top: 0 !important;
+}

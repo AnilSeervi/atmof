@@ -126,12 +126,3 @@ export function getWindCondition(speed: number) {
   }
   return null
 }
-
-export const getWindDirectionDeg = (deg: number) => deg + 180
-
-export const tempValue = (temp: number, isImeprial = false) => {
-  if (isImeprial) {
-    return Math.round(temp * 1.8 + 32)
-  }
-  return Math.round(temp)
-}

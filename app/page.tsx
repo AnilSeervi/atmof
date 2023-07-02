@@ -44,7 +44,13 @@ export default async function Page(props: PageProps) {
             current={weather.current}
             units={units === 'imperial'}
           />
-          <CurrentDetail minutely={weather.minutely} />
+          <CurrentDetail
+            minutely={weather.minutely}
+            current={weather.current}
+            timezone={timezone}
+            units={units === 'imperial'}
+            daily={weather.daily}
+          />
           <pre className='text-xs'>{JSON.stringify(weather, null, 2)}</pre>
         </>
       )}

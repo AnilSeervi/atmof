@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
-import { getIfDay } from '@/utils'
-import { getWindCondition, tempValue } from '@/utils/constants'
+import { getIfDay, tempValue } from '@/utils'
+import { getWindCondition } from '@/utils/constants'
 import { Separator } from '../ui/separator'
 import { Icons } from '../ui/icons'
 

@@ -79,3 +79,22 @@ export const tellMeRain = (minutely: any) => {
     rainTime[0].dt
   )} Minutes`
 }
+
+export const speedUnit = (speed: number, isImperial: boolean) => {
+  if (isImperial) return `${(speed * 2.237).toFixed(1)} mph`
+  return `${speed} m/s`
+}
+
+export const tempValue = (temp: number, isImeprial = false) => {
+  if (isImeprial) {
+    return Math.round(temp * 1.8 + 32)
+  }
+  return Math.round(temp)
+}
+
+export const getWindDirectionDeg = (deg: number) => deg + 180
+
+export const lengthUnit = (length: number, isImperial: boolean) => {
+  if (isImperial) return `${(length / 1609).toFixed(1)} mi`
+  return `${(length / 1e3).toFixed(1)} km`
+}

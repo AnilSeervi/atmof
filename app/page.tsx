@@ -1,6 +1,7 @@
 import City from '@/components/screen/City'
 import Current from '@/components/screen/Current'
 import CurrentDetail from '@/components/screen/CurrentDetail'
+import Hourly from '@/components/screen/Hourly'
 import NavBar from '@/components/screen/NavBar'
 import { getLocation, getWeather } from '@/lib/api'
 import { Suspense } from 'react'
@@ -50,6 +51,11 @@ export default async function Page(props: PageProps) {
             timezone={timezone}
             units={units === 'imperial'}
             daily={weather.daily}
+          />
+          <Hourly
+            hourly={weather.hourly}
+            timezone={timezone}
+            units={units === 'imperial'}
           />
           <pre className='text-xs'>{JSON.stringify(weather, null, 2)}</pre>
         </>

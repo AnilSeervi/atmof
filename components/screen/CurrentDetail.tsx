@@ -153,7 +153,7 @@ export default function CurrentDetail({
           />
         </div>
       </section>
-      <Separator className='my-4' />
+      <Separator className='mb-3 mt-4' />
     </>
   )
 }

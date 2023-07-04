@@ -12,13 +12,22 @@ export type HourlyStatProps = {
   }
   timezone: string
   units: boolean
+  index: number
 }
 
-export default function HourlyStat({ hour, timezone, units }: HourlyStatProps) {
+export default function HourlyStat({
+  hour,
+  timezone,
+  units,
+  index,
+}: HourlyStatProps) {
   return (
     <>
       <div
-        className='inline-flex shrink-0 flex-col items-center justify-center gap-2 px-3 py-1.5'
+        className={cn(
+          'inline-flex shrink-0 flex-col items-center justify-center gap-2 px-3 py-1.5',
+          index !== 0 && 'text-muted-foreground'
+        )}
         key={hour.dt}
       >
         <span className='text-xs'>

@@ -29,7 +29,7 @@ function NavBar({ units, timezone }: NavBarProps) {
             Date.now() / 1000
           )}
         </span>
-        <span className='text-[10px] text-neutral-500 lg:text-xs'>
+        <span className='text-[10px] text-muted-foreground lg:text-xs'>
           {getTime(
             {
               hour: 'numeric',

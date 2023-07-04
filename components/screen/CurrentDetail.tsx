@@ -62,7 +62,9 @@ export default function CurrentDetail({
 }: CurrentDetailProps) {
   return (
     <>
-      <p className='text-center'>{tellMeRain(minutely)}</p>
+      <p className='text-center text-xs text-muted-foreground'>
+        {tellMeRain(minutely)}
+      </p>
       <section className='my-4 flex flex-col gap-3 px-8 [&>div]:grid [&>div]:grid-cols-2 [&>div]:items-center [&>div]:gap-10'>
         <div>
           <Stat

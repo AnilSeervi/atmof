@@ -15,7 +15,9 @@ export default function Stat({ icon, header, body }: StatProps) {
         })}
       </div>
       <div>
-        <p className='text-xs leading-relaxed'>{header}</p>
+        <p className='text-xs leading-relaxed text-muted-foreground'>
+          {header}
+        </p>
         <p className='font-medium'>{body}</p>
       </div>
     </div>

@@ -11,8 +11,9 @@ export default function Hourly({ hourly, timezone, units }: HourlyProps) {
   return (
     <>
       <div className='scrollbar-hide flex overflow-x-scroll'>
-        {hourly.map((hour) => (
+        {hourly.map((hour, index) => (
           <HourlyStat
+            index={index}
             hour={hour}
             timezone={timezone}
             units={units}

@@ -36,12 +36,12 @@ export default function Current({ daily, current, units }: CurrentProps) {
           </h3>
           <p className='mb-7 flex items-center gap-1 text-xs'>
             <span className='flex items-center'>
-              <Icons.chevdown className='inline h-5 w-5 p-0.5' />{' '}
+              <Icons.chevdown className='inline h-5 w-5 p-0.5 text-muted-foreground' />{' '}
               {tempValue(daily[0].temp.min, units)}
               &deg;
             </span>
             <span className='flex items-center'>
-              <Icons.chevup className='inline h-5 w-5 p-0.5' />{' '}
+              <Icons.chevup className='inline h-5 w-5 p-0.5 text-muted-foreground' />{' '}
               {tempValue(daily[0].temp.max, units)}
               &deg;
             </span>
@@ -51,7 +51,7 @@ export default function Current({ daily, current, units }: CurrentProps) {
               {current.weather[0].main} &bull;{' '}
               {getWindCondition(current.wind_speed)?.condition}
             </p>
-            <p className='text-xs leading-normal'>
+            <p className='mt-1 text-xs leading-normal text-muted-foreground'>
               Feels like {tempValue(current.feels_like, units)}&deg;
             </p>
           </div>
@@ -65,7 +65,9 @@ export default function Current({ daily, current, units }: CurrentProps) {
               'm-4 text-8xl'
             )}
           ></i>
-          <p className='text-xs'>{current.weather[0].description}</p>
+          <p className='text-xs text-muted-foreground'>
+            {current.weather[0].description}
+          </p>
         </div>
       </section>
       <Separator className='my-4' />

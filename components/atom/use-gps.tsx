@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 import { Button } from '../ui/button'
 import { Icons } from '../ui/icons'
 import { useRouter } from 'next/navigation'
@@ -41,12 +41,6 @@ export default function GetGPS() {
       )
     }
   }, [success])
-
-  useEffect(() => {
-    if (localStorage.getItem('gps-granted')) {
-      getGeoLocation()
-    }
-  }, [getGeoLocation])
 
   return (
     <Button size='icon' variant='ghost' onClick={() => getGeoLocation()}>

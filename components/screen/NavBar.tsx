@@ -15,7 +15,7 @@ function NavBar({ units, timezone }: NavBarProps) {
     <nav className='flex items-center justify-between'>
       <div className='flex items-center gap-3'>
         <GetGPS />
-        <CommandMenu />
+        <CommandMenu units={units === 'imperial'} />
       </div>
       <div className='flex flex-col items-center'>
         <span className='text-sm lg:text-base'>

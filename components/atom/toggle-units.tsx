@@ -15,7 +15,7 @@ export default function ToggleUnits({ units }: { units: Params['units'] }) {
   const params = query?.entries()
   const queries: Queries[] = []
 
-  if (!params)
+  if (params)
     for (const [key, value] of params as any) {
       queries.push({ key, value })
     }

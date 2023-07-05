@@ -38,7 +38,7 @@ export default function HourlyStat({
           className={cn(
             `wi wi-fw wi-owm${
               hour.weather[0].icon.includes('n') ? '-night' : ''
-            }-${hour.weather[0].id} hourly-icon`,
+            }-${hour.weather[0].id}`,
             'text-2xl'
           )}
         ></i>

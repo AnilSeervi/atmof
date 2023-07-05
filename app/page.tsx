@@ -63,7 +63,7 @@ export default async function Page(props: PageProps) {
             daily={weather.daily}
             units={units === 'imperial'}
           />
-          <pre className='text-xs'>{JSON.stringify(weather, null, 2)}</pre>
+          {/* <pre className='text-xs'>{JSON.stringify(weather, null, 2)}</pre> */}
         </>
       )}
     </>

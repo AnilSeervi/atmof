@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { Button } from '../ui/button'
@@ -9,14 +10,56 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
+  CommandSeparator,
 } from '../ui/command'
 import { useCallback, useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
+import useDebounce from '@/lib/useDebounce'
+import { tempValue } from '@/utils'
+import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
-function CommandMenu() {
+type SearchResults = {
+  id: number
+  name: string
+  sys: {
+    country: string
+  }
+  main: {
+    temp: number
+    feels_like: number
+  }
+  weather: {
+    id: number
+    main: string
+    description: string
+    icon: string
+  }[]
+  coord: {
+    lon: number
+    lat: number
+  }
+}
+
+function CommandMenu({ units }: { units: boolean }) {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const { setTheme } = useTheme()
+  const [query, setQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<SearchResults[]>([])
 
+  useDebounce(
+    () => {
+      if (query.length > 0)
+        fetch('/api/find?q=' + query)
+          .then((res) => res.json())
+          .then((data) => {
+            setSearchResults(data)
+          })
+    },
+    500,
+    [query]
+  )
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -40,10 +83,67 @@ function CommandMenu() {
         <Icons.search />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder='Type a command or search...' />
+        <CommandInput
+          placeholder='Type a command or search...'
+          onValueChange={(e) => setQuery(e)}
+          value={query}
+        />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          {/* <CommandSeparator /> */}
+          <CommandGroup heading='Search City'>
+            {searchResults.map((result) => (
+              <CommandItem
+                key={result.id}
+                value={query + result.name + result.id}
+                onSelect={() =>
+                  runCommand(() =>
+                    router.replace(
+                      `/?lat=${result.coord.lat}&lon=${result.coord.lon}&city=${
+                        result.name
+                      }&country=${result.sys.country}&units=${
+                        units ? 'imperial' : 'metric'
+                      }`
+                    )
+                  )
+                }
+              >
+                <div className='flex flex-1 items-center justify-between'>
+                  <div className='flex items-center'>
+                    {result.name}, {result.sys.country}
+                    <img
+                      className='ml-2 inline-block'
+                      src={`https://openweathermap.org/images/flags/${String(
+                        result.sys.country
+                      ).toLocaleLowerCase()}.png`}
+                      alt={result.sys.country}
+                      width={15}
+                      height={10}
+                    />
+                  </div>
+                  <div className='flex basis-1/5 items-baseline'>
+                    <span>
+                      {tempValue(result.main.temp, units, true)}&deg;
+                      {units ? 'F' : 'C'}
+                    </span>
+                    <span className='ml-1 text-muted-foreground'>
+                      <i
+                        className={cn(
+                          `wi wi-fw wi-owm${
+                            result.weather[0].icon.includes('n') ? '-night' : ''
+                          }-${result.weather[0].id}`,
+                          'text-lg'
+                        )}
+                      ></i>
+                    </span>
+                  </div>
+                  <div className='text-[10px] text-muted-foreground'>
+                    {result.coord.lat} / {result.coord.lon}
+                  </div>
+                </div>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
           <CommandGroup heading='Theme'>
             <CommandItem
               value='light'

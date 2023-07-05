@@ -85,7 +85,16 @@ export const speedUnit = (speed: number, isImperial: boolean) => {
   return `${speed} m/s`
 }
 
-export const tempValue = (temp: number, isImeprial = false) => {
+export const tempValue = (
+  temp: number,
+  isImeprial = false,
+  isKelvin = false
+) => {
+  if (isKelvin) {
+    if (isImeprial) return Math.round((temp - 273.15) * 1.8 + 32)
+    return Math.round(temp - 273.15)
+  }
+
   if (isImeprial) {
     return Math.round(temp * 1.8 + 32)
   }

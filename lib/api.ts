@@ -6,6 +6,15 @@ export async function getLocation(
   name: string | undefined,
   country: string | undefined
 ): Promise<{ name: string; country: string }[]> {
+  if (name && country) {
+    return [
+      {
+        name,
+        country,
+      },
+    ]
+  }
+
   if (lat && lon) {
     const reverseGeoURL = `${process.env.REVERSE_GEO_URL}&lat=${lat}&lon=${lon}`
     try {
@@ -24,14 +33,7 @@ export async function getLocation(
       return [{ name: 'London', country: 'GB' }]
     }
   }
-  if (name && country) {
-    return [
-      {
-        name,
-        country,
-      },
-    ]
-  }
+
   return [
     {
       name: 'London',
@@ -51,6 +53,26 @@ export async function getWeather(
     const res = await fetch(weatherDataURL, {
       next: {
         revalidate: 60 * 15,
+      },
+    })
+
+    if (!res.ok) {
+      const mes = await res.json()
+      throw new Error(mes.message)
+    }
+
+    return res.json()
+  } catch (e: any) {
+    return { error: e?.message || 'Something went wrong' }
+  }
+}
+
+export async function getSearch(q: string) {
+  const searchURL = `${process.env.SEARCH_URL}&q=${q}`
+  try {
+    const res = await fetch(searchURL, {
+      next: {
+        revalidate: 60 * 2,
       },
     })
 

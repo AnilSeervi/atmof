@@ -11,7 +11,7 @@ export default function Daily({ daily, timezone, units }: any) {
     <>
       <Accordion type='single' collapsible className='w-full'>
         {daily.map((day: any) => (
-          <AccordionItem value={day.dt}>
+          <AccordionItem value={day.dt} key={day.dt}>
             <AccordionTrigger className='flex'>
               <p>{getDay({ weekday: 'long' }, timezone, day.dt)}</p>
               <div className='ml-auto flex basis-2/4 justify-between'>

@@ -57,7 +57,7 @@ function CommandMenu({ units }: { units: boolean }) {
             setSearchResults(data)
           })
     },
-    500,
+    200,
     [query]
   )
   useEffect(() => {

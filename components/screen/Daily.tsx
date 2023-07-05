@@ -23,6 +23,9 @@ type DailyProps = {
       min: number
       max: number
       day: number
+      night: number
+      eve: number
+      morn: number
     }
     weather: {
       id: number
@@ -82,13 +85,13 @@ export default function Daily({ daily, timezone, units }: DailyProps) {
                 <span>
                   {getTime({ dateStyle: 'medium' }, timezone, day.dt)}
                 </span>
-                <span className='flex items-center justify-center font-medium text-foreground'>
-                  {tempValue(day.temp.min, units)}
-                  <Icons.chevleft className='inline-block w-4 text-muted-foreground' />
-                  {tempValue(day.temp.day, units)}
-                  <Icons.chevright className='inline-block w-4 text-muted-foreground' />
-                  {tempValue(day.temp.max, units)}
-                </span>
+                <div className='flex h-full items-center justify-center gap-1 font-medium text-foreground'>
+                  {tempValue(day.temp.morn, units)}&deg;
+                  <Separator orientation='vertical' className='inline-block' />
+                  {tempValue(day.temp.day, units)}&deg;
+                  <Separator orientation='vertical' className='inline-block' />
+                  {tempValue(day.temp.night, units)}&deg;
+                </div>
 
                 <span className='text-right capitalize'>
                   {day.weather[0].description}

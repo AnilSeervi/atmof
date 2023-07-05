@@ -75,6 +75,7 @@ function CommandMenu({ units }: { units: boolean }) {
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)
     command()
+    setQuery('')
   }, [])
 
   return (

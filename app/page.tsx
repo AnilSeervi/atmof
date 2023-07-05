@@ -4,6 +4,7 @@ import CurrentDetail from '@/components/screen/CurrentDetail'
 import Daily from '@/components/screen/Daily'
 import Hourly from '@/components/screen/Hourly'
 import NavBar from '@/components/screen/NavBar'
+import { Separator } from '@/components/ui/separator'
 import { getLocation, getWeather } from '@/lib/api'
 import { Suspense } from 'react'
 
@@ -63,6 +64,18 @@ export default async function Page(props: PageProps) {
             daily={weather.daily}
             units={units === 'imperial'}
           />
+          <Separator className='my-3' />
+          <p className='my-2 text-center text-xs text-muted-foreground'>
+            Developed by{' '}
+            <a
+              href='https://github.com/AnilSeervi'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='underline'
+            >
+              Anil Seervi
+            </a>
+          </p>
           {/* <pre className='text-xs'>{JSON.stringify(weather, null, 2)}</pre> */}
         </>
       )}

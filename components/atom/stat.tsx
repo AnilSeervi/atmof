@@ -3,7 +3,7 @@ import React from 'react'
 type StatProps = {
   icon: React.ReactNode
   header: string
-  body: string
+  body: React.ReactNode
 }
 
 export default function Stat({ icon, header, body }: StatProps) {

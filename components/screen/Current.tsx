@@ -65,7 +65,7 @@ export default function Current({ daily, current, units }: CurrentProps) {
               'm-4 text-8xl'
             )}
           ></i>
-          <p className='text-xs text-muted-foreground'>
+          <p className='text-xs capitalize text-muted-foreground'>
             {current.weather[0].description}
           </p>
         </div>

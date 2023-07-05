@@ -10,7 +10,7 @@ export default async function CurrentDetails({ promise }: CityProps) {
   return (
     <>
       <Separator className='mb-4 mt-1' />
-      <h1 className='mb-2 text-2xl lg:text-3xl'>
+      <h1 className='mb-1 text-xl lg:text-2xl'>
         {location?.name}, {location?.country}
       </h1>
     </>

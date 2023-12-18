@@ -1,16 +1,16 @@
 import {
-  Moon,
-  SunMedium,
-  Locate,
-  Search,
-  Laptop,
-  LocateFixed,
-  type Icon as LucideIcon,
-  ChevronUp,
   ChevronDown,
-  LucideProps,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  Laptop,
+  Locate,
+  LocateFixed,
+  LucideProps,
+  Moon,
+  Search,
+  SunMedium,
+  type LucideIcon,
 } from 'lucide-react'
 
 export type Icon = LucideIcon

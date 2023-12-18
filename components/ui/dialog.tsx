@@ -1,19 +1,18 @@
 'use client'
 
-import * as React from 'react'
+import { cn } from '@/lib/utils'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X as CloseIcon } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import * as React from 'react'
 
 const Dialog = DialogPrimitive.Root
 
 const DialogTrigger = DialogPrimitive.Trigger
 
 const DialogPortal = ({
-  className,
   ...props
 }: DialogPrimitive.DialogPortalProps) => (
-  <DialogPrimitive.Portal className={cn(className)} {...props} />
+  <DialogPrimitive.Portal  {...props} />
 )
 DialogPortal.displayName = DialogPrimitive.Portal.displayName
 
@@ -112,11 +111,6 @@ const DialogDescription = React.forwardRef<
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 
 export {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger
 }
+

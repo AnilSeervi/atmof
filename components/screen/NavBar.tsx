@@ -1,9 +1,9 @@
+import type { Params } from '@/app/page'
+import { getTime } from '@/utils'
 import CommandMenu from '../atom/command-menu'
 import ModeToggle from '../atom/toggle-menu'
-import type { Params } from '@/app/page'
-import GetGPS from '../atom/use-gps'
-import { getTime } from '@/utils'
 import ToggleUnits from '../atom/toggle-units'
+import GetGPS from '../atom/use-gps'
 
 type NavBarProps = {
   units: Params['units']
@@ -15,7 +15,7 @@ function NavBar({ units, timezone }: NavBarProps) {
     <nav className='flex items-center justify-between'>
       <div className='flex items-center gap-3'>
         <GetGPS />
-        <CommandMenu units={units === 'imperial'} />
+        <CommandMenu units={units} />
       </div>
       <div className='flex flex-col items-center'>
         <span className='text-sm lg:text-base'>

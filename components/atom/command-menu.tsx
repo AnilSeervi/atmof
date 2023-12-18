@@ -1,8 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
+import { Params } from '@/app/page'
+import useDebounce from '@/lib/useDebounce'
+import { cn } from '@/lib/utils'
+import { tempValue } from '@/utils'
+import { useTheme } from 'next-themes'
+import { useRouter } from 'next/navigation'
+import { useCallback, useEffect, useState } from 'react'
 import { Button } from '../ui/button'
-import { Icons } from '../ui/icons'
 import {
   CommandDialog,
   CommandEmpty,
@@ -12,12 +18,8 @@ import {
   CommandList,
   CommandSeparator,
 } from '../ui/command'
-import { useCallback, useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
-import useDebounce from '@/lib/useDebounce'
-import { tempValue } from '@/utils'
-import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
+import { Icons } from '../ui/icons'
+import Loader from '../ui/loader'
 
 type SearchResults = {
   id: number
@@ -41,24 +43,28 @@ type SearchResults = {
   }
 }
 
-function CommandMenu({ units }: { units: boolean }) {
+function CommandMenu({ units }: { units: Params['units'] }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const { setTheme } = useTheme()
-  const [query, setQuery] = useState('')
+  const [query, setQuery] = useState({ value: '', loading: false })
   const [searchResults, setSearchResults] = useState<SearchResults[]>([])
 
   useDebounce(
     () => {
-      if (query.length > 0)
-        fetch('/api/find?q=' + query)
+      if (query.value.trim().length > 2) {
+        fetch('/api/find?q=' + query.value)
           .then((res) => res.json())
           .then((data) => {
             setSearchResults(data)
           })
+          .finally(() => {
+            setQuery((query) => ({ ...query, loading: false }))
+          })
+      }
     },
     200,
-    [query]
+    [query.value]
   )
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -75,7 +81,7 @@ function CommandMenu({ units }: { units: boolean }) {
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false)
     command()
-    setQuery('')
+    setQuery({ value: '', loading: false })
   }, [])
 
   return (
@@ -85,25 +91,40 @@ function CommandMenu({ units }: { units: boolean }) {
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder='Type a command or search...'
-          onValueChange={(e) => setQuery(e)}
-          value={query}
+          placeholder='Search a city(eg. London)'
+          onValueChange={(e) => {
+            setSearchResults([])
+            setQuery({ value: e, loading: e.trim().length > 2 })
+          }}
+          value={query.value}
         />
         <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading='Search City'>
+          <CommandEmpty>
+            {query.value.trim().length < 3
+              ? 'Type at least 3 characters to search.'
+              : 'No results found.'}
+          </CommandEmpty>
+          {query.loading && (
+            <CommandItem
+              disabled
+              className='flex items-center justify-center'
+              value={query.value}
+            >
+              <Loader className='scale-150' />
+            </CommandItem>
+          )}
+          <CommandGroup
+            heading='Search City'
+            className={cn(!query.value && 'hidden')}
+          >
             {searchResults.map((result) => (
               <CommandItem
                 key={result.id}
-                value={query + result.name + result.id}
+                value={query.value + result.name + result.id}
                 onSelect={() =>
                   runCommand(() =>
                     router.replace(
-                      `/?lat=${result.coord.lat}&lon=${result.coord.lon}&city=${
-                        result.name
-                      }&country=${result.sys.country}&units=${
-                        units ? 'imperial' : 'metric'
-                      }`
+                      `/?lat=${result.coord.lat}&lon=${result.coord.lon}&city=${result.name}&country=${result.sys.country}&units=${units}`
                     )
                   )
                 }
@@ -123,8 +144,9 @@ function CommandMenu({ units }: { units: boolean }) {
                   </div>
                   <div className='flex basis-1/5 items-baseline'>
                     <span>
-                      {tempValue(result.main.temp, units, true)}&deg;
-                      {units ? 'F' : 'C'}
+                      {tempValue(result.main.temp, units === 'imperial', true)}
+                      &deg;
+                      {units === 'imperial' ? 'F' : 'C'}
                     </span>
                     <span className='ml-1 text-muted-foreground'>
                       <i
@@ -147,21 +169,21 @@ function CommandMenu({ units }: { units: boolean }) {
           <CommandSeparator />
           <CommandGroup heading='Theme'>
             <CommandItem
-              value='light'
+              value=''
               onSelect={() => runCommand(() => setTheme('light'))}
             >
               <Icons.sun className='mr-2 h-4 w-4' />
               Light
             </CommandItem>
             <CommandItem
-              value='dark'
+              value=''
               onSelect={() => runCommand(() => setTheme('dark'))}
             >
               <Icons.moon className='mr-2 h-4 w-4' />
               Dark
             </CommandItem>
             <CommandItem
-              value='system'
+              value=''
               onSelect={() => runCommand(() => setTheme('system'))}
             >
               <Icons.laptop className='mr-2 h-4 w-4' />
